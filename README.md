@@ -6,7 +6,7 @@
 
 ## SmolVLA + SO100：zero-shot测试
 
-由于资源受限，一开始是 5090 × 1。我们选定经典的 LIBERO，采用 MuJoCo 仿真器；模型选 SmolVLA 官方 Base 和 LIBERO 微调版本，先从比较简单的 Object 目标识别抓放任务开始。
+由于资源受限，一开始是 5090 × 1。我们选定经典的 LIBERO，采用 MuJoCo 仿真器；模型选较小的 SmolVLA 官方 Base 和 LIBERO 微调版本，先从比较简单的 Object 目标识别抓放任务开始。
 
 直接把 SO100 移植进来，调整摆放位置和相机，直接用 Base 跑。Object 共 10 个任务，每个测 5 次。很遗憾，0/50。
 
@@ -17,7 +17,7 @@
 |Base + SO100|0/50|
 |Base + SO100，调整相机与起势|0/50|
 
-分析认为有两个原因：一是相机参数未知，只能调整到合理范围，仍然存在观测差异；二是 LIBERO 为 Panda 设计，SO100 自由度更少、尺寸更小，尺寸也小，夹爪单侧开合，像蟹钳一样，有些物体不好夹。（10w的臂的性能对比2000块的臂的性能）
+分析认为有两个原因：一是相机参数未知，只能靠肉眼调整到合理范围，仍然存在观测差异；二是 LIBERO 为 Panda 设计，SO100 自由度更少、尺寸更小，尺寸也小，夹爪单侧开合，像蟹钳一样，有些物体不好夹。（10w的臂的性能对比2000块的臂的性能）
 
 ![01_libero_panda_so100_inputs.jpg](assets/images/01_libero_panda_so100_inputs.jpg)
 
@@ -128,11 +128,11 @@ https://github.com/user-attachments/assets/65eb0051-7745-4d1d-afc8-4dd42059147b
 
 作为对比，
 
-我们的smolvla+so100 10条合成数据 fintune 16\*4000=6w训练窗口，object成功率50%，只解冻action专家约100m参数。
+我们的smolvla+so100 10条合成数据 fintune 16\*4000=6w训练窗口，object成功率50%，只解冻action专家约100M参数。
+17分钟单卡.
+smolvla+panda finetune 1600条人类遥操数据 finetune 25,000 × 32=80w训练窗口，object成功率68%，450M全量finetune。
 
-smolvla+panda finetune 1600条人类遥操数据 finetune 25,000 × 32=80w训练窗口，object成功率68%，450全量finetune
-
-但是对于新的布局，vla+本体的适应性还是很差，个人认为与现在vla的benchmark的测试方式有关系：finetune方式一般都是finetune到出现过拟合掉点才结束，导致模型很大程度上已经学会了一些隐式等待关联，在base模型里面的泛化性和能力分布被破坏了，当遇到略微的干扰的时候很容易掉点，这个在实际的生产环境中具有很大的劣势。而vla+已经适应好的本体一起搬进来，然后使用少样本的finetune，我想可以尽可能的保留原始的能力。
+但是对于新的布局，vla+本体的适应性还是很差，个人认为与现在vla的benchmark的测试方式有关系：finetune方式一般都是finetune到出现过拟合掉点才结束，导致模型很大程度上已经学会了一些隐式等待关联，在base模型里面的泛化性和能力分布被破坏了，当遇到略微的干扰的时候很容易掉点，这个在实际的生产环境中具有很大的劣势。而vla+已经适应好的本体一起搬进来，然后使用少步数多样本的finetune，我想可以尽可能的保留原始的能力。
 
 ## 不足和局限
 
