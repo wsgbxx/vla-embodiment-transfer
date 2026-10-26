@@ -21,14 +21,9 @@
 
 ![01_libero_panda_so100_inputs.jpg](assets/images/01_libero_panda_so100_inputs.jpg)
 
-
-
-https://github.com/user-attachments/assets/edb4c698-72bd-482a-b134-0a8c28da9481
-
 视频 1｜Base + SO100：有操作动作，但零样本抓放失败
 
 https://github.com/user-attachments/assets/06278046-a259-4721-9de1-496864552c05
-
 
 ## 允许少量微调，示范数据从哪里来？
 
@@ -50,25 +45,15 @@ https://github.com/user-attachments/assets/06278046-a259-4721-9de1-496864552c05
 
 视频 2｜从 Panda 轨迹重定向出发的 SO100 示范，由于so100没有panda那么长，会出现钩住篮子的情况
 
-[02-panda-to-so100-retargeting.mp4](assets/videos/02-panda-to-so100-retargeting.mp4)
-
 https://github.com/user-attachments/assets/9d03c025-d969-49cb-bea8-3b192587fc5f
 
 视频 3｜SO100 专用规划生成的成功示范，高处放下，不动篮子
 
-
-
 https://github.com/user-attachments/assets/c6bd19cf-4582-4fb0-b054-3e73cc7c68e1
-
-
 
 视频 4｜SmolVLA 微调 500 步后的真实策略成功回合
 
-
-
 https://github.com/user-attachments/assets/6e3db541-3d1a-439c-9754-a12587834368
-
-
 
 按 API 计费，一条成功示范约花 0.2 美元。
 
@@ -90,9 +75,7 @@ https://github.com/user-attachments/assets/6e3db541-3d1a-439c-9754-a12587834368
 
 视频 5｜失败 30 秒后由控制器接管的恢复示范数据
 
-
-
-
+[▶ 查看视频 5：失败后接管的恢复示范（MP4）](assets/videos/05-so100-recovery-demonstration.mp4)
 
 接着我用 Panda 的官方示范，从同一个 Base 微调，每任务一条、同样 2,000 步。Panda 为 46%，SO100 为 36%。两者都给 700 步，Panda 的成功均在 280 步以内，SO100 则都在 280 步之后。
 
@@ -129,22 +112,13 @@ https://github.com/user-attachments/assets/6e3db541-3d1a-439c-9754-a12587834368
 
 ![04_xr1_old_new_configuration.jpg](assets/images/04_xr1_old_new_configuration.jpg)
 
-
 视频 6｜旧配置下 XR1 微调模型的成功评测
-
-
 
 https://github.com/user-attachments/assets/2ef7a821-95be-4b27-aef5-65e3dc477b1b
 
-
-
 视频 7｜新配置下 XR1 微调模型的失败评测
 
-
-
 https://github.com/user-attachments/assets/65eb0051-7745-4d1d-afc8-4dd42059147b
-
-
 
 ## 结论
 
@@ -160,11 +134,10 @@ smolvla+panda finetune 1600条人类遥操数据 finetune 25,000 × 32=80w训练
 
 但是对于新的布局，vla+本体的适应性还是很差，个人认为与现在vla的benchmark的测试方式有关系：finetune方式一般都是finetune到出现过拟合掉点才结束，导致模型很大程度上已经学会了一些隐式等待关联，在base模型里面的泛化性和能力分布被破坏了，当遇到略微的干扰的时候很容易掉点，这个在实际的生产环境中具有很大的劣势。而vla+已经适应好的本体一起搬进来，然后使用少样本的finetune，我想可以尽可能的保留原始的能力。
 
+## 不足和局限
 
-7.不足和局限：
+1. 尝试了对除了objec任务之外的剩下30个任务，由于人工采集数据成本过高，继续沿用agent+ik方法尝试采集数据，很遗憾，这些任务，如打开柜子把碗放进去等，比较的复杂且更长，即使agent进行了多任务拆分，也不能合成高质量的成功数据。
 
-1.尝试了对除了objec任务之外的剩下30个任务，由于人工采集数据成本过高，继续沿用agent+ik方法尝试采集数据，很遗憾，这些任务，如打开柜子把碗放进去等，比较的复杂且更长，即使agent进行了多任务拆分，也不能合成高质量的成功数据。
+2. 由于机械臂，数据质量和任务数不同，以及finetune时候的部分参数和全参数的区别，我们的实验baseline对比并不够公平和变量唯一，仅作为小实验。
 
-2.由于机械臂，数据质量和任务数不同，以及finetune时候的部分参数和全参数的区别，我们的实验baseline对比并不够公平和变量唯一，仅作为小实验。
-
-3。实验中如学习率等超参数缺乏统一的消融和遍历，实验结果未必最佳
+3. 实验中如学习率等超参数缺乏统一的消融和遍历，实验结果未必最佳
