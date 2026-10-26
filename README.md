@@ -1,8 +1,16 @@
-# VLA 微调究竟在适应什么？把vla和vla熟悉的机械臂直接搬进来能否完成benchmark
+# 将 VLA 与其已适配的机器人本体一起迁移，能否降低新 Benchmark 的少样本适应成本？
 
 我们认为，机器人数据里的本体种类比较少，而 VLM 可能已经通过互联网数据学习了大量图像、指令和空间关系。迁移时需要微调，很大一部分可能是在适应本体、相机和位置标定。
 
 那我们不妨反过来做：保留 benchmark 的任务、物体和成功判定，把vla和vla熟悉的机械臂搬进来。这样可以直接观察，原来那套视觉语言知识，能不能驱动它熟悉的本体完成新的 benchmark。
+
+## H1：Embodiment-Aligned Transfer Hypothesis
+
+当 VLA 和已经适配的机器人本体一起进入新 benchmark 时，已有的控制能力可以被复用。因此，相较于需要重新适配机器人接口的迁移方式，达到相同成功率所需的示范数量和训练成本应该更低。
+
+## H2：Benchmark-Specific Adaptation Hypothesis
+
+即使保留 VLA 与机器人之间原有的适配关系，新 benchmark 的视觉分布、几何布局和任务动作仍然需要大量重新学习。因此，保留本体适配未必能显著降低数据需求，性能仍主要取决于新任务的示范质量和场景配置。
 
 ## SmolVLA + SO100：zero-shot测试
 
@@ -127,13 +135,7 @@ https://github.com/user-attachments/assets/2ef7a821-95be-4b27-aef5-65e3dc477b1b
 
 https://github.com/user-attachments/assets/65eb0051-7745-4d1d-afc8-4dd42059147b
 
-## 结论
-
-最初的猜想：任务图像和语言的泛化已经在 VLM 里学过，微调主要是在适应本体。
-
-结果：将vla和本体同时搬到libero场景里面确实有优势，少样本迁移效果不错，我认为确实有很大一部分finetune成本是放在了适应本体上面，smolvla+SO100 能到 36%，XR1 能到 42%，都只用每任务一条数据、只训练动作侧，很少的步数。
-
-作为对比，
+## 结果对照
 
 我们的smolvla+so100 10条合成数据 fintune 16\*4000=6w训练窗口，object成功率50%，只解冻action专家约100M参数。
 17分钟单卡.
@@ -142,7 +144,9 @@ https://github.com/user-attachments/assets/65eb0051-7745-4d1d-afc8-4dd42059147b
 
 smolvla+panda finetune 1600条人类遥操数据 finetune 25,000 × 32=80w训练窗口，object成功率68%，450M全量finetune。
 
-但是对于新的布局，vla+本体的适应性还是很差，个人认为与现在vla的benchmark的测试方式有关系：finetune方式一般都是finetune到出现过拟合掉点才结束，导致模型很大程度上已经学会了一些隐式等待关联，在base模型里面的泛化性和能力分布被破坏了，当遇到略微的干扰的时候很容易掉点，这个在实际的生产环境中具有很大的劣势。而vla+已经适应好的本体一起搬进来，然后使用少步数多样本的finetune，我想可以尽可能的保留原始的能力。
+## 结论
+
+保留 VLA 与已适配本体的组合，可以在新 benchmark 上实现少样本任务适应；但其效果高度依赖本体可达性、专用示范质量和安装配置。相较传统迁移方式的数据效率优势仍需要进一步验证。
 
 ## 不足和局限
 
