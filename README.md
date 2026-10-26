@@ -21,10 +21,11 @@
 
 ![01_libero_panda_so100_inputs.jpg](assets/images/01_libero_panda_so100_inputs.jpg)
 
+
+
+https://github.com/user-attachments/assets/edb4c698-72bd-482a-b134-0a8c28da9481
+
 视频 1｜Base + SO100：有操作动作，但零样本抓放失败
-
-[01-smolvla-base-so100-zero-shot.mp4](assets/videos/01-smolvla-base-so100-zero-shot.mp4)
-
 
 https://github.com/user-attachments/assets/06278046-a259-4721-9de1-496864552c05
 
@@ -51,13 +52,23 @@ https://github.com/user-attachments/assets/06278046-a259-4721-9de1-496864552c05
 
 [02-panda-to-so100-retargeting.mp4](assets/videos/02-panda-to-so100-retargeting.mp4)
 
+https://github.com/user-attachments/assets/9d03c025-d969-49cb-bea8-3b192587fc5f
+
 视频 3｜SO100 专用规划生成的成功示范，高处放下，不动篮子
 
-[03-so100-agent-ik-demonstration.mp4](assets/videos/03-so100-agent-ik-demonstration.mp4)
+
+
+https://github.com/user-attachments/assets/c6bd19cf-4582-4fb0-b054-3e73cc7c68e1
+
+
 
 视频 4｜SmolVLA 微调 500 步后的真实策略成功回合
 
-[04-smolvla-finetuned-success.mp4](assets/videos/04-smolvla-finetuned-success.mp4)
+
+
+https://github.com/user-attachments/assets/6e3db541-3d1a-439c-9754-a12587834368
+
+
 
 按 API 计费，一条成功示范约花 0.2 美元。
 
@@ -79,7 +90,9 @@ https://github.com/user-attachments/assets/06278046-a259-4721-9de1-496864552c05
 
 视频 5｜失败 30 秒后由控制器接管的恢复示范数据
 
-[05-so100-recovery-demonstration.mp4](assets/videos/05-so100-recovery-demonstration.mp4)
+
+
+
 
 接着我用 Panda 的官方示范，从同一个 Base 微调，每任务一条、同样 2,000 步。Panda 为 46%，SO100 为 36%。两者都给 700 步，Panda 的成功均在 280 步以内，SO100 则都在 280 步之后。
 
@@ -119,11 +132,19 @@ https://github.com/user-attachments/assets/06278046-a259-4721-9de1-496864552c05
 
 视频 6｜旧配置下 XR1 微调模型的成功评测
 
-[08-xr1-old-configuration-success.mp4](assets/videos/08-xr1-old-configuration-success.mp4)
 
-视频 9｜新配置下 XR1 微调模型的失败评测
 
-[09-xr1-new-configuration-failure.mp4](assets/videos/09-xr1-new-configuration-failure.mp4)
+https://github.com/user-attachments/assets/2ef7a821-95be-4b27-aef5-65e3dc477b1b
+
+
+
+视频 7｜新配置下 XR1 微调模型的失败评测
+
+
+
+https://github.com/user-attachments/assets/65eb0051-7745-4d1d-afc8-4dd42059147b
+
+
 
 ## 结论
 
