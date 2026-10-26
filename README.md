@@ -25,6 +25,10 @@
 
 [01-smolvla-base-so100-zero-shot.mp4](assets/videos/01-smolvla-base-so100-zero-shot.mp4)
 
+
+https://github.com/user-attachments/assets/06278046-a259-4721-9de1-496864552c05
+
+
 ## 允许少量微调，示范数据从哪里来？
 
 零样本失败后，我们换一个更弱的假设：允许 finetune，但只用很少的数据和步数。问题是，原始示范都是 Panda 的，换成 SO100 就没有对应的数据了。
