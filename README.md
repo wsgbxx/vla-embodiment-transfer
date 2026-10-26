@@ -77,7 +77,14 @@ https://github.com/user-attachments/assets/6e3db541-3d1a-439c-9754-a12587834368
 
 [▶ 查看视频 5：失败后接管的恢复示范（MP4）](assets/videos/05-so100-recovery-demonstration.mp4)
 
-接着我用 Panda 的官方示范，从同一个 Base 微调，每任务一条、同样 2,000 步。Panda 为 46%，SO100 为 36%。两者都给 700 步，Panda 的成功均在 280 步以内，SO100 则都在 280 步之后。
+接着我用 Panda 的官方示范，从同一个 Base 微调，每任务一条、共 10 条，同样训练 2,000 步：
+
+|模型与示范数据|训练步数|Object 成功率|
+|---|---|---|
+|Base + Panda，10 条官方示范|2,000|23/50，46%|
+|Base + SO100，10 条 Agent 合成示范|2,000|18/50，36%|
+
+两者都给 700 步，Panda 的成功均在 280 步以内，SO100 则都在 280 步之后。
 
 我认为，Panda 确实更适合 LIBERO，官方示范也比我们合成的动作更自然。SO100 的可达性、夹爪和相机参数会牵扯太多精力，所以决定换一个更接近 LIBERO 硬件条件的模型。
 
@@ -130,6 +137,9 @@ https://github.com/user-attachments/assets/65eb0051-7745-4d1d-afc8-4dd42059147b
 
 我们的smolvla+so100 10条合成数据 fintune 16\*4000=6w训练窗口，object成功率50%，只解冻action专家约100M参数。
 17分钟单卡.
+
+同一个 Base + Panda，用 10 条官方示范微调 2,000 步，Object 成功率为 23/50，46%。
+
 smolvla+panda finetune 1600条人类遥操数据 finetune 25,000 × 32=80w训练窗口，object成功率68%，450M全量finetune。
 
 但是对于新的布局，vla+本体的适应性还是很差，个人认为与现在vla的benchmark的测试方式有关系：finetune方式一般都是finetune到出现过拟合掉点才结束，导致模型很大程度上已经学会了一些隐式等待关联，在base模型里面的泛化性和能力分布被破坏了，当遇到略微的干扰的时候很容易掉点，这个在实际的生产环境中具有很大的劣势。而vla+已经适应好的本体一起搬进来，然后使用少步数多样本的finetune，我想可以尽可能的保留原始的能力。
